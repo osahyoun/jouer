@@ -13,7 +13,7 @@ module Jouer
     end
 
     def redis
-      @redis ||= Redis.new
+      Jouer::Connection.db
     end
 
     def write(key, *opts)
