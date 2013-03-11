@@ -1,7 +1,7 @@
 module Jouer
   class Parser
     PASS = /^score/
-    PATTERN = /\s+@([a-z]+)\s+@([a-z]+)\s+(\d+)/
+    PATTERN = /\s+@([a-zA-Z]+)\s+@([a-zA-Z]+)\s+(\d+)/
 
     def initialize(input)
       @input = input
