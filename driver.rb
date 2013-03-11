@@ -38,9 +38,6 @@ class Driver
         </tbody>
       </table>}
     
-    # puts HIPCHAT.rooms_message(ENV["HIPCHAT_ROOM_ID"], "foosball", table, notify=0)    
-    view = Jouer::View::LeagueTable.new(Jouer::Team.league_table).render
-    puts HIPCHAT.rooms_message(ENV["HIPCHAT_ROOM_ID"], "foosball", view, 0, nil, 'text')
 
     while true
       messages = HIPCHAT.rooms_history(ENV["HIPCHAT_ROOM_ID"], "recent", "Europe/London").parsed_response["messages"]
