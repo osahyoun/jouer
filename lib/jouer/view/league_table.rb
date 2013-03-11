@@ -7,7 +7,7 @@ module Jouer
       end
 
       def header
-        ["TEAM", "RANK"]
+        ["TEAM", "GAMES WON"]
       end
 
       def render
