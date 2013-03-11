@@ -1,1 +1,2 @@
-worker: env bundle exec rake bot
+worker:   bundle exec rake bot
+
