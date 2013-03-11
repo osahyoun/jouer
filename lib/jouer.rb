@@ -8,8 +8,6 @@ require_relative 'jouer/game'
 require_relative 'jouer/view/view'
 require_relative 'jouer/view/league_table'
 
-
-
 module Jouer
   module Connection
     REDIS_URI = URI.parse(ENV["REDISTOGO_URL"] || "redis://localhost:6379")
