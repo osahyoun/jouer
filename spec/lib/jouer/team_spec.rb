@@ -20,3 +20,4 @@ describe Jouer::Team do
     Jouer::Team.league_table.should == [["david karen", 2.0], ["frank karen", 1.0], ["frank jane", 1.0]]
   end
 end
+

@@ -1,5 +1,9 @@
 module Jouer
   class Game
+    STORAGE = {
+      'history' => { write: :zadd, key: 'games/history' }
+    }
+
     def initialize(detail)
       @detail = detail
     end
@@ -8,27 +12,38 @@ module Jouer
       new(detail).log
     end
 
-    def self.history
-      Connection.db.zrevrange("games/history", 0, -1, with_scores: true)      
+    def redis
+      @redis ||= Redis.new
+    end
+
+    def write(key, *opts)
+      redis.send(STORAGE[key][:write], STORAGE[key][:key], *opts)
+    end
+
+    def read(key, *opts)
+      redis.send(STORAGE[key][:read], key, *opts)
     end
 
     def log
-      Connection.db.zadd('games/history', Time.now.to_i, match_detail.to_hash.to_json)
-
+      log_history
       log_winners
       log_losers
     end
 
+    def log_history
+      write('history', Time.now.to_i, match_detail.to_hash.to_json)
+    end
+
     def log_winners
       winning_team = match_detail.winners
-      winning_team.each{|player| Connection.db.zincrby("games_won/player", 1, player) }
+      winning_team.each{|player| Connection.db.zincrby("games/players/won", 1, player) }
 
-      Connection.db.zincrby("games_won/team", 1, winning_team.join(' '))
+      Connection.db.zincrby("games/teams/won", 1, winning_team.join(' '))
     end
 
     def log_losers
       losing_team = match_detail.losers
-      losing_team.each{|player| Connection.db.zincrby("games_lost/player", 1, player) }
+      losing_team.each{|player| Connection.db.zincrby("games/players/lost", 1, player) }
     end
 
     def match_detail

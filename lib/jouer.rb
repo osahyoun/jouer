@@ -1,9 +1,12 @@
 require 'redis'
 require 'json'
-require 'jouer/player'
-require 'jouer/team'
-require 'jouer/parser'
-require 'jouer/game'
+require 'text-table'
+require_relative 'jouer/player'
+require_relative 'jouer/team'
+require_relative 'jouer/parser'
+require_relative 'jouer/game'
+require_relative 'jouer/view/view'
+require_relative 'jouer/view/league_table'
 
 module Jouer
   module Connection

@@ -14,7 +14,7 @@ describe Jouer::Game do
       Jouer::Game.log("score @karen @frank 10 @alice @michel 2")
     end
 
-    Jouer::Game.history.should == [
+    @redis.zrevrange("games/history", 0, -1, with_scores: true).should == [
       [
         [{team: ['frank','jane'], score: 10}, {team: ['bob','karen'], score: 2}].to_json,
         now.to_i.to_f
