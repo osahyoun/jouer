@@ -11,13 +11,25 @@ describe Jouer::Team do
     Jouer::Game.log("score @alice @bob 7 @karen @david 10")    
   end
 
-  it "should know how many games a team has won" do
-    Jouer::Team.new("frank", "karen").games_won?.should == 1
-    Jouer::Team.new("karen", "david").games_won?.should == 2
+  it "should return winning teams" do
+    Jouer::Team.winners.should == [
+      ["david karen", 2],
+      ["frank karen", 1],
+      ["frank jane", 1]
+    ]
   end
 
-  it "should know the league table of scoring players" do
-    Jouer::Team.league_table.should == [["david karen", 2.0], ["frank karen", 1.0], ["frank jane", 1.0]]
+  it "should return losing teams" do
+    Jouer::Team.losers.should == [
+      ["bob karen", 1],
+      ["alice michel", 1],
+      ["alice frank", 1],
+      ["alice bob", 1]
+    ]
   end
+
+  it "should return a teams match history" do
+    pending
+  end
+
 end
-

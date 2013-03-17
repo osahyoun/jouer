@@ -1,25 +1,31 @@
 module Jouer
   class Player
+    extend Storage
+    include Storage
+
     def initialize(name)
       @name = name
     end
 
-    def self.league_table
-      Connection.db.zrevrange("games/players/won", 0, -1, with_scores: true)
+    def matches
+
     end
 
-    def games_won?
-      Connection.db.zscore("games/players/won", @name).to_i
+    class << self
+      def winners
+        store.zrevrange("games/players/won", 0, -1, with_scores: true).map do |t|
+          t[1] = t[1].to_i
+          t
+        end
+      end
+
+      def losers
+        store.zrevrange("games/players/lost", 0, -1, with_scores: true).map do |t|
+          t[1] = t[1].to_i
+          t
+        end
+      end
     end
 
-    def games_lost?
-      Connection.db.zscore("games/players/lost", @name).to_i
-    end
   end
 end
-
-
-# games/player/won
-# games/plater/lost
-# 
-# games

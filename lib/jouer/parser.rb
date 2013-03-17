@@ -14,11 +14,15 @@ module Jouer
     end
 
     def winners
-      to_hash[0][:team]
+      to_hash[0][:team].join(' ')
+    end
+    
+    def score
+      [parse[0][2].to_i, parse[1][2].to_i].sort
     end
 
     def losers
-      to_hash[1][:team]
+      to_hash[1][:team].join(' ')
     end
 
     def to_hash

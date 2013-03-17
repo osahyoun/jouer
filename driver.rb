@@ -5,40 +5,9 @@ require 'text-table'
 require './lib/jouer'
 
 class Driver
-  ENV['HIPCHAT_TOKEN'] = '7164c495a2bde0a840b0bc177a86fb'
-  ENV["HIPCHAT_ROOM_ID"] = '112016'
-  
   HIPCHAT = HipChat::API.new(ENV["HIPCHAT_TOKEN"])
 
   def self.run
-    table = %{<table width='200' border="2">
-      <thead>
-      <tr>
-      <th align='left'>
-      RANK
-      </th>
-      <th></th>
-      <th>TEAM</th>
-      <th>GAMES WON</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>1.</strong></td>
-          <td>&nbsp;</td>
-          <td>Omar / Sarah</td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td><strong>2.</strong></td>
-          <td>&nbsp;</td>        
-          
-          <td>Jake / Tom</td>
-          <td>4</td>
-        </tr>
-        </tbody>
-      </table>}
-    
-
     while true
       messages = HIPCHAT.rooms_history(ENV["HIPCHAT_ROOM_ID"], "recent", "Europe/London").parsed_response["messages"]
       messages.each do |m|
@@ -51,7 +20,6 @@ class Driver
         end
       end
 
-      p 'done. waiting 15 secs'
       sleep 15
     end
   end

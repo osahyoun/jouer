@@ -1,19 +1,26 @@
 module Jouer
   class Team
-    def initialize(*names)
-      @names = names.sort
+    extend Storage
+
+    class << self
+      def winners
+        store.zrevrange("games/teams/won", 0, -1, with_scores: true).map do |t|
+          t[1] = t[1].to_i
+          t
+        end
+      end
+
+      def losers
+        store.zrevrange("games/teams/lost", 0, -1, with_scores: true).map do |t|
+          t[1] = t[1].to_i
+          t
+        end
+      end
     end
 
-    def self.league_table
-      Connection.db.zrevrange("games/teams/won", 0, -1, with_scores: true)
+    def matches
+
     end
 
-    def games_won?
-      Connection.db.zscore("games/teams/won",  @names.join(' ')).to_i
-    end
-
-    def games_lost?
-      Connection.db.zscore("games/teams/won", @names.join(' ')).to_i
-    end
   end
 end
