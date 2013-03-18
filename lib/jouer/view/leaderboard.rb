@@ -7,11 +7,11 @@ module Jouer
       end
 
       def header
-        ["TEAM", "GAMES WON"]
+        ["TEAM", "GAMES WON", "GAMES LOST"]
       end
 
       def render
-        ([header] + @data).to_table first_row_is_head: true
+        ([header] + @data).to_table(first_row_is_head: true).to_s
       end
 
     end
