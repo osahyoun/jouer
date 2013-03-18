@@ -10,9 +10,8 @@ describe Jouer::View::LeagueTable do
   end
 
   it "should correctly render league table as a text table" do
-    pending
-    table = Jouer::View::LeagueTable.new(Jouer::Team.league_table).render
-    table.should == "fff"
+    table = Jouer::View::LeagueTable.new(Jouer::Leaderboard.teams).render
+    puts table
   end
 
 end
