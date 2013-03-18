@@ -1,6 +1,6 @@
 module Jouer
   module View
-    class LeagueTable
+    class Leaderboard
 
       def initialize(data)
         @data = data

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Jouer::View::LeagueTable do
+describe Jouer::View::Leaderboard do
 
   before do
     Jouer::Game.log("score @bob @karen 2 @jane @frank 10")
@@ -11,9 +11,9 @@ describe Jouer::View::LeagueTable do
   end
 
   it "should correctly render league table as a text table" do
-    table = Jouer::View::LeagueTable.new(Jouer::Leaderboard.teams).render
+    table = Jouer::View::Leaderboard.new(Jouer::Leaderboard.teams).render
     table.should match(/TEAM\s+|\s+GAMES WON\s+|\s+GAMES LOST\s+|/)
-    table.should match(/david karen.+2.+0/)
+    table.should match(/|\s+david karen\s+|\s+2\s+|\s+0\s+|/)    
     table.should match(/|\s+alice bob\s+|\s+0\s+|\s+1\s+|/)
   end
 
