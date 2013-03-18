@@ -8,7 +8,7 @@ require_relative 'jouer/parser'
 require_relative 'jouer/game'
 require_relative 'jouer/leaderboard'
 require_relative 'jouer/view/view'
-require_relative 'jouer/view/league_table'
+require_relative 'jouer/view/leaderboard'
 
 module Jouer
   module Connection
